@@ -1,7 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 
-html_text = requests.get('https://bible.usccb.org/bible/readings/010823.cfm').text
+url = input("Enter the URL of the USCCB website with the readings:")
+
+html_text = requests.get(url).text
 soup = BeautifulSoup(html_text, 'lxml')
 
 divs = soup.find_all('div', class_ = 'content-body')
