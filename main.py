@@ -8,6 +8,8 @@ soup = BeautifulSoup(html_text, 'lxml')
 
 divs = soup.find_all('div', class_ = 'content-body')
 
-for div in divs:
-    readings = div.text
-    print(readings)
+div_texts = [div.text for div in divs]
+titles = ["First Reading", "Psalm", "Second Reading", "Alleluia Acclamation", "Gospel"]
+for div_text, title in zip(div_texts, titles):
+    print(title)
+    print(div_text)
