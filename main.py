@@ -6,9 +6,10 @@ url = input("Enter the URL of the USCCB website with the readings:")
 html_text = requests.get(url).text
 soup = BeautifulSoup(html_text, 'lxml')
 
-divs = soup.find_all('div', class_ = 'content-body')
+divs = soup.find_all('div', class_='content-body')
 
 div_texts = [div.text for div in divs]
+
 titles = ["First Reading", "Psalm", "Second Reading", "Alleluia Acclamation", "Gospel"]
 for div_text, title in zip(div_texts, titles):
     print(title)
