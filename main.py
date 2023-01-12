@@ -21,6 +21,10 @@ for div_text, title in zip(div_texts, titles):
 "Create PPT Presentation to add slides to"
 ppt_slides = Presentation()
 
+"Register the slide (Number refers to the layouts of each slide)"
+slide1_register = ppt_slides.slide_layouts[1]
 
 
-ppt_slides.save("Day Readings.pptx")
+
+#saves in my local downloads folder
+ppt_slides.save("C:/Users/Colorado/Downloads/Day_Readings.pptx")
