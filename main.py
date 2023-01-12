@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from pptx import Presentation
 
 url = input("Enter the URL of the USCCB website with the readings:")
 
@@ -14,3 +15,12 @@ titles = ["First Reading", "Psalm", "Second Reading", "Alleluia Acclamation", "G
 for div_text, title in zip(div_texts, titles):
     print(title)
     print(div_text)
+
+
+
+"Create PPT Presentation to add slides to"
+ppt_slides = Presentation()
+
+
+
+ppt_slides.save("Day Readings.pptx")
