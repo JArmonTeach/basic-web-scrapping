@@ -3,7 +3,7 @@ Web scrapping with Python 3
 
 ## Table of Contents
 
-## Instalation
+## Installation
 
 ## Usage
 
