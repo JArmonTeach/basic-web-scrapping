@@ -1,4 +1,6 @@
-## Web Scrapping App
+# Web Scrapping App
+
+## Project Description
 Web scrapping with Python 3
 
 ## Table of Contents
