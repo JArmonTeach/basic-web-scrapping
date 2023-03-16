@@ -3,52 +3,67 @@ import requests
 from pptx import Presentation
 from pptx.util import Inches, Pt
 
+# Send a GET requestto the website and parse the HTML content
 url = input("Enter the URL of the USCCB website with the readings:")
+html_text = requests.get(url)
+soup = BeautifulSoup(html_text.content, 'html.parser')
 
-html_text = requests.get(url).text
-soup = BeautifulSoup(html_text, 'lxml')
+# Locate the HTML elements that contain the text you want to scrape
+# scraped_text = []
+# max_chars_per_slide = 520
+# for element in soup.find_all(class_='content-body'):
+#     scraped_text.append(element.get_text())
+text = ''
+for element in soup.find_all(class_='content-body'):
+    text += element.get_text()
 
-divs = soup.find_all('div', class_='content-body')
+# Join the elements of the list into a single string
+# text = '\n'.join(scraped_text)
 
-div_texts = [div.text for div in divs]
+# Create a new PowerPoint presentation, set the size of the slide and add that new slide
+prs = Presentation()
+prs.slide_width = Inches(16)
+prs.slide_height = Inches(9)
+slide = prs.slides.add_slide(prs.slide_layouts[6])
 
-titles = ["First Reading", "Psalm", "Second Reading", "Alleluia Acclamation", "Gospel"]
-for div_text, title in zip(div_texts, titles):
-    print(title)
-    print(div_text)
+# Create a text box on the slide
+left = Inches(1)
+top = Inches(.55)
+width = Inches(14)
+height = Inches(7.98)
+textbox = slide.shapes.add_textbox(left, top, width, height)
 
+# Reformat the text
+font_name = 'Georgia'
+font_size = Pt(36)
+textbox.text = text
+font = textbox.text_frame.paragraphs[0].font
 
+# Add the scraped text to slide(s)
+chars_written = 0
+lines_written = 0
+max_chars_per_line = 40
+max_lines_per_slide = 13
+for char in text:
+    textbox.text += char
+    chars_written += 1
+    if chars_written % max_chars_per_line == 0:
+        textbox.text += '\n'
+    if char == '\n' or '<br>':
+        lines_written += 1
+        if lines_written >= max_lines_per_slide:
+            slide = prs.slides.add_slide(prs.slide_layouts[6])
+            left = Inches(1)
+            top = Inches(.55)
+            width = Inches(14)
+            height = Inches(7.98)
+            textbox = slide.shapes.add_textbox(left, top, width, height)
+            font.name = 'Georgia'
+            font.size = Pt(36)
+            textbox.text = ''
+            font = textbox.text_frame.paragraphs[0].font
+            chars_written = 0
+            lines_written = 0
 
-#Create PPT Presentation to add slides to
-ppt_slides = Presentation()
-
-#Adjust Slide size to be widescreen 16:9
-ppt_slides.slide_width = Inches(16)
-ppt_slides.slide_height = Inches(9)
-
-#Register the slide (Number refers to the layouts of each slide; 6 is a blank slide)
-slide1_register = ppt_slides.slide_layouts[6]
-
-#Attach slide obj to slide
-slide = ppt_slides.slides.add_slide(slide1_register)
-
-#Adjust margins TODO: correct sizes
-height = Inches(5.92)
-width = Inches(10.01)
-top = bottom = Inches(1)
-left = right = Inches(1)
-
-#Create textbox
-txBox = slide.shapes.add_textbox(left, top, width, height)
-
-#Create textframes
-tf = txBox.text_frame
-
-#create paragraph
-p = tf.add_paragraph()
-p.text = "TODO"
-p.font.size = Pt(36)
-p.font.name = 'Georgia'
-
-#saves in local downloads folder
-ppt_slides.save("C:/Users/Colorado/Downloads/Day_Readings.pptx")
+# Save the PowerPoint presentation
+prs.save("C:/Users/Colorado/Downloads/Day_Readings.pptx")
