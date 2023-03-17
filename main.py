@@ -67,6 +67,9 @@ for paragraph in paragraphs[1:]:
     # Add the paragraph to the current slide's text box
     p = textbox.text_frame.add_paragraph()
     p.text = paragraph
+    font = p.font
+    font.name = font_name
+    font.size = font_size
     line_count += paragraph.count('\n')
 
 # Save the PowerPoint presentation
