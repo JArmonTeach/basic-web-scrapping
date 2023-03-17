@@ -24,7 +24,7 @@ paragraphs = []
 paragraph = ''
 for line in lines:
     if line:
-        # Check if the line contains any of the phrases you want to remove
+        # Check if the line contains any of the phrases you want to remove; you can add or change the text that needs to be filtered
         if '<div class="content-body">' in line or '</div>' in line or 'R. (1)' in line or 'R.' in line or '<strong>' in line or '</strong>' in line:
             continue
         paragraph += line
