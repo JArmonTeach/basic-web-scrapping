@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests
+import requests, os
 from pptx import Presentation
 from pptx.util import Inches, Pt
 
@@ -75,5 +75,6 @@ for paragraph in paragraphs[1:]:
     font.size = font_size
     line_count += paragraph.count('\n') + 1
 
-# Save the PowerPoint presentation
-prs.save("C:/Users/Colorado/Downloads/Day_Readings.pptx")
+# Save the PowerPoint presentation in the Downloads folder with the filename 'Day_Readings.pptx'
+downloads_path = os.path.join(os.path.expanduser('~'), 'Downloads')
+prs.save(os.path.join(downloads_path, 'Day_Readings.pptx'))
