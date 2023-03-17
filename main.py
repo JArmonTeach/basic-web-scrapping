@@ -11,15 +11,20 @@ soup = BeautifulSoup(html_text.content, 'html.parser')
 # Locate the HTML elements that contain the text you want to scrape
 text = ''
 for element in soup.find_all(class_='content-body'):
-    text += element.get_text()
+    text += str(element.prettify())
 
-# Split the text into paragraphs based on <br> tags
-lines = text.split('<br>')
+# Replace all <br> tags with newline characters
+soup = BeautifulSoup(text, 'html.parser')
+for br in soup.find_all('br'):
+    br.replace_with('\n')
+
+# Split the text into paragraphs based on newline characters
+lines = str(soup).split('\n')
 paragraphs = []
 paragraph = ''
 for line in lines:
     if line:
-        paragraph += line + '\n'
+        paragraph += line
     else:
         paragraphs.append(paragraph.strip())
         paragraph = ''
