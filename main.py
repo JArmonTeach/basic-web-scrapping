@@ -24,6 +24,9 @@ paragraphs = []
 paragraph = ''
 for line in lines:
     if line:
+        # Check if the line contains any of the phrases you want to remove
+        if '<div class="content-body">' in line or '</div>' in line or 'R. (1)' in line or 'R.' in line or '<strong>' in line or '</strong>' in line:
+            continue
         paragraph += line
     else:
         paragraphs.append(paragraph.strip())
@@ -53,7 +56,7 @@ font.name = font_name
 font.size = font_size
 
 # Add the scraped text to slide(s)
-line_count = 0
+line_count = textbox.text_frame.paragraphs[0].text.count('\n') + 1
 for paragraph in paragraphs[1:]:
     # Check if the text in the current slide has exceeded 13 lines
     if line_count >= 13:
@@ -70,7 +73,7 @@ for paragraph in paragraphs[1:]:
     font = p.font
     font.name = font_name
     font.size = font_size
-    line_count += paragraph.count('\n')
+    line_count += paragraph.count('\n') + 1
 
 # Save the PowerPoint presentation
 prs.save("C:/Users/Colorado/Downloads/Day_Readings.pptx")
