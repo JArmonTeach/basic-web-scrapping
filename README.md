@@ -24,5 +24,7 @@ Run Python code.
     2. The automatic download will appear in the local machine's Download folder named "Day_Readings.pptx"
 
 ## Credits
+    Beautiful Soup Documentation: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+    Python Pptx library Documentation: https://python-pptx.readthedocs.io/en/latest/
 
 ## License 
