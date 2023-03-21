@@ -20,6 +20,8 @@ Install Python interpreter:
 Run Python code.
 
 ## Usage
+    1. Paste the link from the USCCB readings website. (NOTE: the formatting of this program was intended to take text from this website and put them unto PowerPoint slides. If taking texts from other websites, then the class name and the formatting of the web scrapping needs to be changed.)
+    2. The automatic download will appear in the local machine's Download folder named "Day_Readings.pptx"
 
 ## Credits
 
